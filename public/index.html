@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Data by Major Primary Site - PDC Style</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 头部标题 -->
+        <header class="header-section">
+            <h1>Disease Data by Major Primary Site</h1>
+            <p>Interactive visualization of disease distribution across human organs</p>
+        </header>
+
+        <!-- 器官点击区域 - 覆盖在背景图上 -->
+        <div class="organ-area lung" data-organ="lung" data-name="Lung"></div>
+        <div class="organ-area brain" data-organ="brain" data-name="Brain"></div>
+        <div class="organ-area bone-marrow" data-organ="bone-marrow" data-name="Bone Marrow and Blood"></div>
+        <div class="organ-area pancreas" data-organ="pancreas" data-name="Pancreas"></div>
+        <div class="organ-area breast" data-organ="breast" data-name="Breast"></div>
+        <div class="organ-area ovary" data-organ="ovary" data-name="Ovary"></div>
+        <div class="organ-area colorectal" data-organ="colorectal" data-name="Colorectal"></div>
+        <div class="organ-area head-neck" data-organ="head-neck" data-name="Head and Neck"></div>
+        <div class="organ-area kidney" data-organ="kidney" data-name="Kidney"></div>
+        <div class="organ-area liver" data-organ="liver" data-name="Liver"></div>
+        <div class="organ-area uterus" data-organ="uterus" data-name="Uterus"></div>
+        <div class="organ-area stomach" data-organ="stomach" data-name="Stomach"></div>
+
+
+
+        <!-- 左侧人体图区域 -->
+        <div class="human-body-section">
+            <div class="body-container">
+                <img src="images/body.png" alt="Human Body" id="human-body-image">
+            </div>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="content-wrapper">
+
+            <!-- 右侧图表区域 -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h2>Number of Cases</h2>
+                    <div class="chart-controls">
+                        <button class="control-btn active" data-sort="cases">Sort by Cases</button>
+                        <button class="control-btn" data-sort="name">Sort by Name</button>
+                    </div>
+                </div>
+                
+                <!-- 柱状图容器 -->
+                <div class="chart-container" id="chart-container">
+                    <!-- 动态生成的柱状图 -->
+                </div>
+                
+                <!-- 信息面板 -->
+                <div class="info-panel">
+                    <h3>Selected Organ: <span id="selected-organ-name">None</span></h3>
+                    <p id="selected-organ-info">Click on an organ to view detailed information</p>
+                    <button id="view-details-btn" class="details-btn" disabled>View Detailed Data</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据详情模态框 -->
+        <div class="modal" id="data-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Organ Data Details</h2>
+                    <button class="close-btn" id="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="data-tabs">
+                        <button class="tab-btn active" data-type="modCount">Modification Counts</button>
+                        <button class="tab-btn" data-type="scaleMod">Scale Modifications</button>
+                        <button class="tab-btn" data-type="siteCount">Site Counts</button>
+                    </div>
+                    <div class="data-content" id="data-content">
+                        <div class="loading">Loading data...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载指示器 -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading medical data...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Data Details</title>
+    <link rel="stylesheet" href="css/data-detail.css">
+</head>
+<body>
+    <!-- 加载覆盖层 -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading medical data...</div>
+    </div>
+
+    <div class="main-container">
+        <!-- 头部区域 -->
+        <header class="header-section">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="m19 12H5"/>
+                    </svg>
+                    Back to Overview
+                </button>
+                <h1 id="page-title">Medical Data Details</h1>
+                <div class="organ-info">
+                    <span id="organ-name">Loading...</span>
+                    <span id="organ-cases">0 cases</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 数据表格区域 -->
+        <div class="content-wrapper">
+            <!-- 标签导航 -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-type="modCount">MOD Count Data</button>
+                <button class="tab-btn" data-type="scaleMod">Scale MOD Data</button>
+                <button class="tab-btn" data-type="siteCount">Site Count Data</button>
+            </div>
+
+            <!-- 表格容器 -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 id="table-title">MOD Count Data</h3>
+                    <div class="table-controls">
+                        <input type="text" id="search-input" placeholder="Search in table..." class="search-input">
+                        <button class="export-btn" onclick="exportData()">Export CSV</button>
+                    </div>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table id="data-table" class="data-table">
+                        <thead id="table-head">
+                            <!-- 表头将通过JavaScript动态生成 -->
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- 表格内容将通过JavaScript动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <div class="pagination">
+                        <button id="prev-page" class="page-btn" disabled>Previous</button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button id="next-page" class="page-btn" disabled>Next</button>
+                    </div>
+                    <div class="table-info">
+                        <span id="total-rows">0 rows total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 60, 114, 0.3);
+    z-index: -1;
+}
+
+/* 主容器 */
+.main-container {
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* 头部区域 */
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-section h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #00d4ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* 内容包装器 */
+.content-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-left: 55%;
+    padding-right: 5%;
+    padding-top: 0px;
+    position: relative;
+}
+
+/* 左侧人体图区域 */
+.human-body-section {
+    position: fixed;
+    left: 15%;
+    top: 65%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 675px;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 150, 255, 0.3));
+    transform: scale(1.05);
+}
+
+.body-image {
+    display: none;
+}
+
+/* 器官点击区域 - 移除高亮方块，改为全屏覆盖的透明点击区域 */
+.organ-area {
+    position: fixed;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 10;
+}
+
+.organ-area:hover {
+    background: transparent;
+}
+
+.organ-area.selected {
+    background: transparent;
+}
+
+/* 器官位置定义 - 基于全屏背景图的位置 */
+.organ-area.lung { top: 25%; left: 20%; width: 120px; height: 100px; }
+.organ-area.brain { top: 12%; left: 22%; width: 100px; height: 80px; }
+.organ-area.bone-marrow { top: 20%; left: 15%; width: 80px; height: 60px; }
+.organ-area.pancreas { top: 45%; left: 22%; width: 90px; height: 60px; }
+.organ-area.breast { top: 28%; left: 18%; width: 110px; height: 70px; }
+.organ-area.ovary { top: 68%; left: 20%; width: 100px; height: 50px; }
+.organ-area.colorectal { top: 58%; left: 21%; width: 100px; height: 80px; }
+.organ-area.head-neck { top: 8%; left: 21%; width: 110px; height: 70px; }
+.organ-area.kidney { top: 48%; left: 18%; width: 140px; height: 80px; }
+.organ-area.liver { top: 38%; left: 25%; width: 100px; height: 90px; }
+.organ-area.uterus { top: 73%; left: 23%; width: 70px; height: 60px; }
+.organ-area.stomach { top: 43%; left: 20%; width: 90px; height: 70px; }
+
+
+
+/* 右侧图表区域 */
+.chart-section {
+    width: 550px;
+    min-height: 600px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.chart-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #00d4ff;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.active {
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+    border-color: #00d4ff;
+}
+
+/* 图表容器 */
+.chart-container {
+    margin-bottom: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.chart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.chart-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.chart-item.selected {
+    background: rgba(255, 255, 0, 0.1);
+    border-color: #ffff00;
+}
+
+.organ-name {
+    flex: 0 0 180px;
+    font-weight: 600;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.chart-bar-container {
+    flex: 1;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin: 0 15px;
+    position: relative;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.chart-bar {
+    height: 100%;
+    border-radius: 15px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: linear-gradient(90deg, var(--bar-color), var(--bar-color-light));
+    pointer-events: none;
+}
+
+.organ-count {
+    flex: 0 0 80px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 16px;
+    color: #00d4ff;
+    pointer-events: none;
+}
+
+/* 信息面板 */
+.info-panel {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.info-panel h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #00d4ff;
+}
+
+.info-panel p {
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.details-btn {
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.details-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+}
+
+.details-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        padding-left: 300px;
+        padding-top: 120px;
+    }
+
+    .chart-section {
+        width: 480px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 10px;
+    }
+
+    .header-section h1 {
+        font-size: 2rem;
+    }
+
+    .content-wrapper {
+        justify-content: center;
+        padding-left: 10px;
+        padding-top: 50px;
+    }
+
+    .chart-section {
+        width: 90%;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .organ-name {
+        flex: 0 0 120px;
+        font-size: 12px;
+    }
+
+    /* 移动端器官区域调整 */
+    .organ-area.lung { top: 20%; left: 15%; width: 100px; height: 80px; }
+    .organ-area.brain { top: 10%; left: 18%; width: 80px; height: 60px; }
+    .organ-area.bone-marrow { top: 15%; left: 12%; width: 60px; height: 50px; }
+    .organ-area.pancreas { top: 40%; left: 18%; width: 70px; height: 50px; }
+    .organ-area.breast { top: 23%; left: 15%; width: 90px; height: 60px; }
+    .organ-area.ovary { top: 63%; left: 16%; width: 80px; height: 40px; }
+    .organ-area.colorectal { top: 53%; left: 17%; width: 80px; height: 60px; }
+    .organ-area.head-neck { top: 6%; left: 17%; width: 90px; height: 60px; }
+    .organ-area.kidney { top: 43%; left: 14%; width: 120px; height: 70px; }
+    .organ-area.liver { top: 33%; left: 20%; width: 80px; height: 70px; }
+    .organ-area.uterus { top: 68%; left: 19%; width: 60px; height: 50px; }
+    .organ-area.stomach { top: 38%; left: 16%; width: 70px; height: 60px; }
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 80vh;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header h2 {
+    color: #00d4ff;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.data-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+    border-color: #00d4ff;
+}
+
+.data-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    color: #333;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+    color: #333;
+}
+
+.data-table tr:hover {
+    background: #f9f9f9;
+}
+
+/* 加载动画 */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 60, 114, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    backdrop-filter: blur(10px);
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #00d4ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.chart-item {
+    animation: slideIn 0.5s ease forwards;
+    cursor: pointer !important;
+    user-select: none;
+}
+
+.chart-item:nth-child(1) { animation-delay: 0.1s; }
+.chart-item:nth-child(2) { animation-delay: 0.2s; }
+.chart-item:nth-child(3) { animation-delay: 0.3s; }
+.chart-item:nth-child(4) { animation-delay: 0.4s; }
+.chart-item:nth-child(5) { animation-delay: 0.5s; }
+.chart-item:nth-child(6) { animation-delay: 0.6s; }

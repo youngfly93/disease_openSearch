@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('public/images/background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 60, 114, 0.3);
+            z-index: -1;
+        }
+        
+        .chart-section {
+            position: fixed;
+            top: 150px;
+            left: 400px;
+            width: 450px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-header h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+        
+        .chart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .chart-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .chart-item.selected {
+            background: rgba(255, 255, 0, 0.1);
+            border-color: #ffff00;
+        }
+        
+        .organ-name {
+            flex: 0 0 120px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .chart-bar-container {
+            flex: 1;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+        }
+        
+        .organ-count {
+            flex: 0 0 60px;
+            text-align: right;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .status {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="status">
+        <h3>点击测试状态</h3>
+        <p id="click-status">等待点击...</p>
+        <p>点击下方的柱状图项目测试</p>
+    </div>
+    
+    <div class="chart-section">
+        <div class="chart-header">
+            <h2>Number of Cases</h2>
+        </div>
+        
+        <div class="chart-container" id="chart-container">
+            <div class="chart-item" data-organ="lung">
+                <div class="organ-name">Lung</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 100%;"></div>
+                </div>
+                <div class="organ-count">620</div>
+            </div>
+            
+            <div class="chart-item" data-organ="brain">
+                <div class="organ-name">Brain</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 95%;"></div>
+                </div>
+                <div class="organ-count">580</div>
+            </div>
+            
+            <div class="chart-item" data-organ="kidney">
+                <div class="organ-name">Kidney</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 50%;"></div>
+                </div>
+                <div class="organ-count">310</div>
+            </div>
+            
+            <div class="chart-item" data-organ="liver">
+                <div class="organ-name">Liver</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 45%;"></div>
+                </div>
+                <div class="organ-count">280</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const chartContainer = document.getElementById('chart-container');
+        const clickStatus = document.getElementById('click-status');
+        
+        // 方法1: 事件委托
+        chartContainer.addEventListener('click', (e) => {
+            console.log('Container clicked:', e.target);
+            const chartItem = e.target.closest('.chart-item');
+            if (chartItem) {
+                const organId = chartItem.dataset.organ;
+                clickStatus.innerHTML = `✅ 事件委托成功！<br>点击了: ${organId}`;
+                
+                // 清除之前的选中状态
+                document.querySelectorAll('.chart-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                // 添加选中状态
+                chartItem.classList.add('selected');
+            }
+        });
+        
+        // 方法2: 直接事件监听器
+        document.querySelectorAll('.chart-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const organId = item.dataset.organ;
+                clickStatus.innerHTML = `✅ 直接事件成功！<br>点击了: ${organId}`;
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>

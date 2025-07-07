@@ -1,0 +1,10 @@
+name: disease_opensearch
+title:
+username: yang-lab
+account: yang-lab
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13666277
+bundleId: 9609478
+url: https://yang-lab.shinyapps.io/disease_opensearch/
+version: 1

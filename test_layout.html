@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Test - Background Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: url('public/images/background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 60, 114, 0.3);
+            z-index: -1;
+        }
+        
+        .test-overlay {
+            position: fixed;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 400px;
+        }
+        
+        .test-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+        
+        .test-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-bar {
+            height: 20px;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+            border-radius: 10px;
+            margin: 0 15px;
+            flex: 1;
+        }
+        
+        .organ-click-area {
+            position: fixed;
+            background: rgba(255, 255, 0, 0.2);
+            border: 2px solid yellow;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        /* 测试器官位置 */
+        .lung { top: 25%; left: 20%; width: 120px; height: 100px; }
+        .brain { top: 12%; left: 22%; width: 100px; height: 80px; }
+        .kidney { top: 48%; left: 18%; width: 140px; height: 80px; }
+    </style>
+</head>
+<body>
+    <div class="test-overlay">
+        <h2 class="test-title">Number of Cases</h2>
+        <div class="test-item">
+            <span>Lung</span>
+            <div class="test-bar" style="width: 100%;"></div>
+            <span>620</span>
+        </div>
+        <div class="test-item">
+            <span>Brain</span>
+            <div class="test-bar" style="width: 95%;"></div>
+            <span>580</span>
+        </div>
+        <div class="test-item">
+            <span>Kidney</span>
+            <div class="test-bar" style="width: 50%;"></div>
+            <span>310</span>
+        </div>
+        <div class="test-item">
+            <span>Liver</span>
+            <div class="test-bar" style="width: 45%;"></div>
+            <span>280</span>
+        </div>
+    </div>
+    
+    <!-- 测试点击区域 -->
+    <div class="organ-click-area lung" onclick="alert('Lung clicked!')"></div>
+    <div class="organ-click-area brain" onclick="alert('Brain clicked!')"></div>
+    <div class="organ-click-area kidney" onclick="alert('Kidney clicked!')"></div>
+    
+    <div style="position: fixed; top: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 10px;">
+        <h3>布局测试</h3>
+        <p>✅ 背景图片全屏显示</p>
+        <p>✅ 右侧柱状图覆盖</p>
+        <p>✅ 透明点击区域（黄色边框为测试用）</p>
+        <p>点击黄色区域测试交互</p>
+    </div>
+</body>
+</html>
